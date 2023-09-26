@@ -10,12 +10,16 @@
 ** Step2 ** 
 	Download and install laravel/passport and config the needed files
 	In my local system laravel passport client name as Laravel Personal Access Client can create tokens
+    - composer require laravel/passport  --with-all-dependencies
 
 ** Step3 **
 	- routes\api.php
 	Create api routes for register and login 
 
-** STep4 ** 
+Before start to execute the urls in post man run the command to running the server on local host
+- php artisan serve
+  
+** Step4 ** 
 
 	- [Register, register the user details ](http://localhost:8000/api/register).
 	
@@ -28,6 +32,7 @@
 		+ confirm Password
 		+ about
 		+ business_about
+  
 ** Step 5 **
 
 	- [Login, login with credentials like authorization token ](http://localhost:8000/api/login).
