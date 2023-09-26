@@ -3,19 +3,24 @@
    This is a project to create JSON payload of available posts for the user following and can viewed only by authenticated users and also from the created payload post data has saved in new table as comma separated user Ids
 
 ** Step1 ** 
-	Create tables for sample data which are users, posts, users_viewed, users_shared, users_ratings and users_comments and made the sample entries from the JSON sample by using migration 
-	
-	- php artisan migrate
+    Download and install laravel/passport and config the needed files
+	In my local system laravel passport client name as Laravel Personal Access Client can create tokens
+    - composer require laravel/passport  --with-all-dependencies
 
 ** Step2 ** 
-	Download and install laravel/passport and config the needed files
-	In my local system laravel passport client name as Laravel Personal Access Client can create tokens
+	Create tables for sample data which are users, posts, users_viewed, users_shared, users_ratings and users_comments and made the sample entries from the JSON sample by using migration 
+	- php artisan migrate
+ 
+    - Have attached the DB sql file to export the tables in location => database\migrations\laravel.sql
 
 ** Step3 **
 	- routes\api.php
 	Create api routes for register and login 
 
-** STep4 ** 
+Before start to execute the urls in post man run the command to running the server on local host
+- php artisan serve
+  
+** Step4 ** 
 
 	- [Register, register the user details ](http://localhost:8000/api/register).
 	
@@ -28,9 +33,9 @@
 		+ confirm Password
 		+ about
 		+ business_about
+  
 ** Step 5 **
-
-	- [Login, login with credentials like authorization token ](http://localhost:8000/api/login).
+	- [Login, login with credentials ](http://localhost:8000/api/login).
 
 	- App\Http\Controllers\API\RegisterController => login
 
@@ -40,6 +45,12 @@
 		+ headers of Authorization along with Bearer token is needed (Which is created at the time of Register)
 
 ** Step6 **
+    + pass the remember token from the users table for the corresponding user_id in headers of post man
+
+    - CURLOPT_HTTPHEADER => array(
+    'Accept: application/json',
+    'Authorization: "Bearer.{token}")
+    
 	- App\Http\Controllers\API\PostsController => index
 
  	Create payload for the authenticated user by using user id 
