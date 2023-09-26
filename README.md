@@ -10,7 +10,7 @@
 ** Step2 ** 
 	Create tables for sample data which are users, posts, users_viewed, users_shared, users_ratings and users_comments and made the sample entries from the JSON sample by using migration 
 	- php artisan migrate
-    Have attached the DB sql file to export the tables in location => database\migrations\laravel.sql
+    + Have attached the DB sql file to export the tables in location => database\migrations\laravel.sql
 
 ** Step3 **
 	- routes\api.php
