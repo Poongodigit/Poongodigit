@@ -39,7 +39,16 @@ class RegisterController extends MainController
         $input = $request->all();
         $input['password'] = bcrypt($input['password']);
         $user = User::create($input);
-        $success['token'] =  $user->createToken('Laravel Personal Access Client')->accessToken;
+        $user_id = $user->id;
+
+        $remember_token = $user->createToken('Laravel Personal Access Client')->accessToken;
+        $success['token'] =  $remember_token;
+
+        $affected = DB::table('users')
+                    ->where('id','=',$user_id)
+                    ->update(['remember_token' => $remember_token
+                            ]);
+
         $success['name'] =  $user->name;
 
         return $this->sendResponse($success, 'User register successfully.');
