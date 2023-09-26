@@ -152,6 +152,8 @@ class PostsController extends MainController
     {
         /* Save data in table 1 */
         $postData = $request->all();
+        /*Serialize the JSON data to save it in table */
+        $serializedData = serialize($postData);
         
         /*Get arrays to save the user_ids */
         $data = array_column($postData, "following_user_post");
@@ -239,7 +241,7 @@ class PostsController extends MainController
                 {
                     $affected = DB::table('post_data')
                     ->where('post_id','=',$post_id)
-                    ->update(['user_viewed' => $viewed_users,
+                    ->update(['post_data' => $serializedData,'user_viewed' => $viewed_users,
                               'users_commented' => $commented_users,
                               'users_rated' => $rated_users,
                               'users_shared' => $shared_users
@@ -249,6 +251,7 @@ class PostsController extends MainController
                 else{
                     $post = new PostData;
                     $post->post_id = $post_id;
+                    $post->post_data = $serializedData;
                     $post->user_viewed = $viewed_users;
                     $post->users_commented = $commented_users;
                     $post->users_rated = $rated_users;
