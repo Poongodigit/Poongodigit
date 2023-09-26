@@ -3,14 +3,14 @@
    This is a project to create JSON payload of available posts for the user following and can viewed only by authenticated users and also from the created payload post data has saved in new table as comma separated user Ids
 
 ** Step1 ** 
-	Create tables for sample data which are users, posts, users_viewed, users_shared, users_ratings and users_comments and made the sample entries from the JSON sample by using migration 
-	
-	- php artisan migrate
-
-** Step2 ** 
-	Download and install laravel/passport and config the needed files
+    Download and install laravel/passport and config the needed files
 	In my local system laravel passport client name as Laravel Personal Access Client can create tokens
     - composer require laravel/passport  --with-all-dependencies
+
+** Step2 ** 
+	Create tables for sample data which are users, posts, users_viewed, users_shared, users_ratings and users_comments and made the sample entries from the JSON sample by using migration 
+	- php artisan migrate
+    Have attached the DB sql file to export the tables in location => database\migrations\laravel.sql
 
 ** Step3 **
 	- routes\api.php
