@@ -34,8 +34,7 @@ Before start to execute the urls in post man run the command to running the serv
 		+ business_about
   
 ** Step 5 **
-
-	- [Login, login with credentials like authorization token ](http://localhost:8000/api/login).
+	- [Login, login with credentials ](http://localhost:8000/api/login).
 
 	- App\Http\Controllers\API\RegisterController => login
 
@@ -45,6 +44,12 @@ Before start to execute the urls in post man run the command to running the serv
 		+ headers of Authorization along with Bearer token is needed (Which is created at the time of Register)
 
 ** Step6 **
+    + pass the remember token from the users table for the corresponding user_id in headers of post man
+
+    - CURLOPT_HTTPHEADER => array(
+    'Accept: application/json',
+    'Authorization: "Bearer.{token}")
+    
 	- App\Http\Controllers\API\PostsController => index
 
  	Create payload for the authenticated user by using user id 
