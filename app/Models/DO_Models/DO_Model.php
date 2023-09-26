@@ -56,6 +56,7 @@ class DO_Model
                                             "name" => $userData[0]['name'],
                                             "profile_pic"=>$userData[0]['profile_pic'],
                                             "language" => $userData[0]['language'],
+                                            "about" => $userData[0]['about'],
                                             "business_about" => $userData[0]['business_about']);
         }
 
@@ -134,7 +135,7 @@ class DO_Model
             
         }
         
-        return array("userViewedDataResponseArray" => $userViewedDataResponseArray,"user_id" => $userIDPostData);
+        return array("userViewedDataResponseArray" => $userViewedDataResponseArray,"user_id" => $userIDPostData,"count"=>count($userData));
 
     }
 
@@ -211,7 +212,7 @@ class DO_Model
         }
         
 
-        return array("userSharedDataResponseArray" => $userSharedDataResponseArray,"user_id" => $userIDPostData);
+        return array("userSharedDataResponseArray" => $userSharedDataResponseArray,"user_id" => $userIDPostData,"count"=>count($userData));
 
     }
 
@@ -285,7 +286,7 @@ class DO_Model
 
         }
 
-        return array("userRatedDataResponseArray" => $userRatedDataResponseArray,"user_id" => $userIDPostData);
+        return array("userRatedDataResponseArray" => $userRatedDataResponseArray,"user_id" => $userIDPostData,"count"=>count($ratingData));
     }
 
     /* Function to return the payload JSOn data for user comments for posts */
@@ -359,7 +360,7 @@ class DO_Model
             $userIDPostData = $user_id[0];
         }
 
-        return array("userCommentsDataResponseArray" => $userCommentsDataResponseArray,"user_id" => $userIDPostData);
+        return array("userCommentsDataResponseArray" => $userCommentsDataResponseArray,"user_id" => $userIDPostData,"count"=>count($commentsData));
 
     }
 

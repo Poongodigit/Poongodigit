@@ -60,7 +60,7 @@ class PostsController extends MainController
 
             /* Data from users table for the user who has logged in  */
             $loggedin_user_data = $this->DO_Model->getLoggedinUserDataArray($user_id);
-
+            
             if(!empty($posts_data))
             {
                 foreach($posts_data as $data)
@@ -91,9 +91,9 @@ class PostsController extends MainController
                                             "users_rated" => (isset($users_rated[$i]['userRatedDataResponseArray']) && $users_rated[$i]['userRatedDataResponseArray']) ? $users_rated[$i]['userRatedDataResponseArray'] : "",
                                             "users_shared" => (isset($users_shared[$i]['userSharedDataResponseArray']) && $users_shared[$i]['userSharedDataResponseArray']) ? $users_shared[$i]['userSharedDataResponseArray'] : "",
                                             "users_comments" => (isset($users_comments[$i]['userCommentsDataResponseArray']) && $users_comments[$i]['userCommentsDataResponseArray']) ? $users_comments[$i]['userCommentsDataResponseArray'] : "",
-                                            "total_comments" => count($users_comments),
-                                            "total_views" => count($users_comments),
-                                            "total_shared" => count($users_shared),
+                                            "total_comments" => $users_comments[$i]['count'],
+                                            "total_views" => $user_viewed[$i]['count'],
+                                            "total_shared" => $users_shared[$i]['count'],
                                             );
                     
                     /* User ID preparation to store post data using json payload */
@@ -109,7 +109,8 @@ class PostsController extends MainController
                                         "following_user_post"=>$following_user_post,
                                     );
                 
-                $saveData = $this->saveData($userviewedPostData,$userRatedPostData,$userSharedPostData,$userCommentsPostData,$posts_data);
+                /* Test function to save user ids from json data without use it as payload */
+                // $saveData = $this->saveData($userviewedPostData,$userRatedPostData,$userSharedPostData,$userCommentsPostData,$posts_data);
                 return json_encode($responseArray);
             }
             else{
@@ -178,7 +179,7 @@ class PostsController extends MainController
                 $user_viewed = $saveData['user_viewed'];
                 $user_viewed_array[] = $saveData['user_viewed'];
 
-                if(!empty($user_viewed)){
+                if(!empty($user_viewed) && $user_viewed != NULL){
                     $viewed_users_array = array_column($user_viewed,"id");
                     $viewed_users_array = array_values($viewed_users_array);
                     $viewed_users = $viewed_users_array[0];
@@ -192,7 +193,7 @@ class PostsController extends MainController
                 $user_rated = $saveData['users_rated'];
                 $user_rated_array[] = $saveData['users_rated'];
 
-                if(!empty($user_rated)){
+                if(!empty($user_rated) && $user_rated != NULL){
                     $rated_users_array = array_column($user_rated,"id");
                     $rated_users_array = array_values($rated_users_array);
                     $rated_users = $rated_users_array[0];
@@ -206,8 +207,8 @@ class PostsController extends MainController
                 /* shared users id array preparation */
                 $user_shared = $saveData['users_shared'];
                 $user_shared_array[] = $saveData['users_shared'];
-
-                if(!empty($user_rated)){
+               
+                if(!empty($user_shared) && $user_shared != NULL){
                     $shared_users_array = array_column($user_shared,"id");
                     $shared_users_array = array_values($shared_users_array);
                     $shared_users = $shared_users_array[0];
@@ -221,7 +222,7 @@ class PostsController extends MainController
                 $user_commented = $saveData['users_comments'];
                 $user_commented_array[] = $saveData['users_comments'];
 
-                if(!empty($user_commented)){
+                if(!empty($user_commented) && $user_commented != NULL){
                     $commented_users_array = array_column($user_commented,"id");
                     $commented_users_array = array_values($commented_users_array);
                     $commented_users = $commented_users_array[0];
