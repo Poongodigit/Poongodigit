@@ -37,6 +37,8 @@ class RegisterController extends MainController
         }
 
         $input = $request->all();
+        $language = $input['language'];
+        $input['language'] = $this->getLangugaeArray($language);
         $input['password'] = bcrypt($input['password']);
         $user = User::create($input);
         $user_id = $user->id;
@@ -79,6 +81,31 @@ class RegisterController extends MainController
         else{
             return $this->sendError('Unauthorised.', ['error'=>'Unauthorised']);
         } 
+    }
+
+     public function getLangugaeArray($language)
+    {
+        /* From input prepare the language to fetch from table */
+        $language = explode(",",$language);
+
+        $language = implode("','",$language);
+        /* Get language details from DB */
+        $sql = "SELECT * FROM `language_master` WHERE `language` IN ('".$language."') ";
+
+        $langDetails =  DB::select($sql);
+
+        $langDetails = collect($langDetails)->map(function($x){ return (array) $x; })->toArray();
+
+        foreach($langDetails as $lang)
+        {
+            $langDataArray[] = array("code"=>$lang['code'],"language"=>$lang['language'],"language_id"=>$lang['id']);
+
+        }
+
+        $langData = json_encode($langDataArray);
+        
+        return $langData;
+
     }
     
 }
